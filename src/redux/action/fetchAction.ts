@@ -1,38 +1,35 @@
-export const FETCH_STAFF_BEGIN   = 'FETCH_STAFF_BEGIN';
-export const FETCH_STAFF_SUCCESS = 'FETCH_STAFF_SUCCESS';
-export const FETCH_STAFF_FAILURE = 'FETCH_STAFF_FAILURE';
+import { url } from './../../consts/index';
+import { Worker } from './../types/Worker';
+import { AppActions } from './../types/actions';
+import { Dispatch } from "redux";
 
-export const fetchStaffBegin = () => ({
-  type: FETCH_STAFF_BEGIN
-});
-
-export const fetchStaffSuccess = (staff: object) => ({
-  type: FETCH_STAFF_SUCCESS,
-  staff
-});
-
-export const fetchStaffFailure = (error: any) => ({
-  type: FETCH_STAFF_FAILURE,
-  error
-});
-
-export function fetchStaff() {
-  return (dispatch: any) => {
-    dispatch(fetchStaffBegin());
-    return fetch('https://afternoon-wave-94253.herokuapp.com/staff')
-      .then(handleErrors)
-      .then(res => res)
-      .then(json => {
-        dispatch(fetchStaffSuccess(json));
-        return json;
-      })
-      .catch(error => dispatch(fetchStaffFailure(error)));
-  };
+export enum FetchActions {
+  FETCH_STAFF_BEGIN   = 'FETCH_STAFF_BEGIN',
+  FETCH_STAFF_SUCCESS = 'FETCH_STAFF_SUCCESS',
+  FETCH_STAFF_FAILURE = 'FETCH_STAFF_FAILURE'
 }
 
-const handleErrors = (response: object) => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
+export const fetchStaffBegin = (): AppActions => {
+  return { type: FetchActions.FETCH_STAFF_BEGIN }
+};
+
+export const fetchStaffSuccess = (staff: Worker[]): AppActions => {
+  return { type: FetchActions.FETCH_STAFF_SUCCESS, staff }
+};
+
+export const fetchStaffFailure = (error: any): AppActions => {
+  return { type: FetchActions.FETCH_STAFF_FAILURE, error }
+};
+
+export function getStaffFromApi() {
+  return (dispatch: Dispatch<AppActions>) => {
+    dispatch(fetchStaffBegin());
+    return fetch(url)
+      .then(response => response.json(),
+            error => dispatch(fetchStaffFailure(error)))
+      .then(data => {
+        dispatch(fetchStaffSuccess(data));
+        return data;
+      })
+  };
 }

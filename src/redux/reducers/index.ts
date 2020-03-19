@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import staff from './staff';
+import staffReducer from './staff';
 
 export default combineReducers({
-    staff
+    staffReducer
   })

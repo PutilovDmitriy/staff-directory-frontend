@@ -1,55 +1,77 @@
-import { ADD_WORKER, DELITE_WORKER, UPDATE_WORKER } from '../action';
-import {
-  FETCH_STAFF_BEGIN,
-  FETCH_STAFF_SUCCESS,
-  FETCH_STAFF_FAILURE
-} from '../action/fetchAction';
+import { AppActions } from './../types/actions';
+import { Staff } from './../types/Staff';
+import { WorkerActions } from '../action';
+import { FetchActions } from '../action/fetchAction';
 
-const initialState = {
+
+const initialState: Staff = {
   staff: [],
   loading: false,
   error: null
 };
 
-export default function walkings(state = initialState, action: {type: string, payload: object}) {
+const staffReducer = (state = initialState, action: AppActions): Staff =>  {
   switch(action.type) {
-    case FETCH_STAFF_BEGIN:
+    case FetchActions.FETCH_STAFF_BEGIN:
       return {
         ...state,
         loading: true,
         error: null
       };
 
-    case FETCH_STAFF_SUCCESS:
+    case FetchActions.FETCH_STAFF_SUCCESS:
       return {
         ...state,
         loading: false,
-        staff: action.payload
+        staff: action.staff
       };
 
-    case FETCH_STAFF_FAILURE:
+    case FetchActions.FETCH_STAFF_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: action.error,
         staff: []
       };
-      case ADD_WORKER:     
-        return Object.assign({}, { walks: state.staff.concat(action.payload), loading: state.loading, error: state.error});
-      case UPDATE_WORKER:
-        //Исправить Update
-        return Object.assign({}, { walks: [].concat(state.staff.slice(0, action.payload.i), [{ id: state.staff[action.payload.i].id, date: action.payload.date, distance: action.payload.distance }] ,state.walks.slice(action.i + 1)), loading: state.loading, error: state.error});       
-      case DELITE_WORKER:
-        let id = () => {
+      case WorkerActions.ADD_WORKER:     
+        return { staff: state.staff.concat(action.worker), loading: state.loading, error: state.error};
+      case WorkerActions.UPDATE_WORKER:
+        let workersBefore = state.staff.slice(0, action.i)
+        let workersAfter = state.staff.slice(action.i + 1)
+        return { 
+        staff: [
+        ...workersBefore, 
+        ...[{ id: state.staff[action.i].id,
+            FIO: action.worker.FIO,
+            position: action.worker.position,
+            birthday: action.worker.birthday,
+            gender: action.worker.gender,
+            isFired: action.worker.gender,
+            collegues: action.worker.collegues
+            }], 
+        ...workersAfter
+        ],
+        loading: state.loading,
+        error: state.error}       
+      case WorkerActions.DELITE_WORKER:
+        const calculateI = (): number | undefined => {
           for(let i = 0; i < state.staff.length; i++) {       
-          if(state.staff[i].id === action.payload) {                                      
+          if(state.staff[i].id === action.id) {                                      
             return i;
           }
         }};
-        if (id() === undefined) {
-          return state
-        }else return Object.assign({}, { walks: [].concat(state.staff.slice(0, id()), state.staff.slice(id() + 1)), loading: state.loading, error: state.error});
+        let i = calculateI()
+        if (i !== undefined) {
+          return { staff: [
+          ...state.staff.slice(0, i), 
+          ...state.staff.slice(i + 1)
+          ], 
+          loading: state.loading, 
+          error: state.error}
+        }
     default:
       return state;
   }
 }
+
+export default staffReducer;
