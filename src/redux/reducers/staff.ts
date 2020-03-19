@@ -11,7 +11,7 @@ const initialState = {
   error: null
 };
 
-export default function walkings(state = initialState, action) {
+export default function walkings(state = initialState, action: {type: string, payload: object}) {
   switch(action.type) {
     case FETCH_STAFF_BEGIN:
       return {
@@ -24,25 +24,25 @@ export default function walkings(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        staff: action.staff
+        staff: action.payload
       };
 
     case FETCH_STAFF_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error,
+        error: action.payload,
         staff: []
       };
       case ADD_WORKER:     
-        return Object.assign({}, { walks: state.staff.concat(action.worker), loading: state.loading, error: state.error});
+        return Object.assign({}, { walks: state.staff.concat(action.payload), loading: state.loading, error: state.error});
       case UPDATE_WORKER:
         //Исправить Update
-        return Object.assign({}, { walks: [].concat(state.staff.slice(0, action.i), [{ id: state.staff[action.i].id, date: action.walking.date, distance: action.walking.distance }] ,state.walks.slice(action.i + 1)), loading: state.loading, error: state.error});       
+        return Object.assign({}, { walks: [].concat(state.staff.slice(0, action.payload.i), [{ id: state.staff[action.payload.i].id, date: action.payload.date, distance: action.payload.distance }] ,state.walks.slice(action.i + 1)), loading: state.loading, error: state.error});       
       case DELITE_WORKER:
         let id = () => {
           for(let i = 0; i < state.staff.length; i++) {       
-          if(state.staff[i].id === action.id) {                                      
+          if(state.staff[i].id === action.payload) {                                      
             return i;
           }
         }};

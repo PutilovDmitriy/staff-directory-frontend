@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
+import Home from './components/Home';
 
 const App: React.FC = () => {
-  return <h1>Hello world 1</h1>
+  return (
+    <Home/>
+  )
 }
 
 export default App;
