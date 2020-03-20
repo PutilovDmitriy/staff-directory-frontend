@@ -15,10 +15,11 @@ const useStyles = makeStyles({
 
 interface IProps {
   staffData: Worker[]
+  activeWorker: number | null | undefined
+  changeActiveWorker: (id: number) => void
 }
-const StaffList: React.FC<IProps> = ({staffData}) => {
+const StaffList: React.FC<IProps> = ({staffData, activeWorker, changeActiveWorker}) => {
   const classes = useStyles();
-  console.log(staffData);
   
   return (
     <Scrollbar>
@@ -27,12 +28,15 @@ const StaffList: React.FC<IProps> = ({staffData}) => {
         <TableBody>
           {staffData.map(worker => (
             <WorkerRow key={worker.id} 
+              id={worker.id}
               FIO={worker.FIO} 
               position={worker.position} 
               birthday={worker.birthday} 
               gender={worker.gender} 
               isFired={worker.isFired} 
-              colleagues={worker.colleagues}  />
+              colleagues={worker.colleagues}
+              activeWorker={ activeWorker }
+              changeActiveWorker={changeActiveWorker}  />
           ))}
         </TableBody>
       </Table>

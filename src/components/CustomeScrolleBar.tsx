@@ -6,7 +6,7 @@ class CustomScrollbarsTable extends Component {
   render() {
     return (
       <Scrollbars
-        style={{width: "75%", marginLeft: '12.5%', marginTop: '4%', boxShadow: '0px 4px 4px rgba(80, 20, 128, 0.5)'}}
+        style={{width: "75%", margin: '10px 12.5% 20px 12.5%' ,  boxShadow: '0px 4px 4px rgba(80, 20, 128, 0.5)'}}
         autoHide
         autoHideTimeout={500}
         autoHideDuration={500}

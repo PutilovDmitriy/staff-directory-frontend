@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
-      backgroundColor: '#E91E63',
+      backgroundColor: '#f50057',
       color: theme.palette.common.white,
       position: 'sticky',
       top: 0,

@@ -1,8 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
+import Container from '@material-ui/core/Container';
 import StaffList from './StaffList';
 import Header from './Header';
 import { AppActions } from '../redux/types/actions'
 import { Worker } from '../redux/types/Worker';
+import ButtonGroup from './ButtonGroup';
 
 interface Props {
   staffData: Worker[],
@@ -26,8 +28,10 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive 
   return (
       <>
         <Header/>
-        <button onClick={() => changeActiveWorker(7)}>Изменить</button>
-        <StaffList staffData={ staffData }/>
+        <Container>
+          <ButtonGroup/>
+          <StaffList changeActiveWorker={changeActiveWorker} staffData={ staffData } activeWorker={ activeWorker }/>
+        </Container>
       </>
   )
 };
