@@ -1,12 +1,9 @@
-import { Worker } from './Worker';
+import { WorkerActions, CHANGE_ACTIVE_WORKER } from './../action';
+import { FetchActions } from './../action/fetchAction';
+import { Worker } from './Worker'; 
 
 //worker action type
 
-enum WorkerActions {
-    ADD_WORKER = "ADD_WORKER",
-    UPDATE_WORKER = "UPDATE_WORKER",
-    DELITE_WORKER = "DELITE_WORKER"
-}
 export interface AddWorker {
     type: typeof WorkerActions.ADD_WORKER,
     worker: Worker;
@@ -30,12 +27,6 @@ export type WorkerActionTypes =
 
 // fetch action type
 
-enum FetchActions {
-    FETCH_STAFF_BEGIN   = 'FETCH_STAFF_BEGIN',
-    FETCH_STAFF_SUCCESS = 'FETCH_STAFF_SUCCESS',
-    FETCH_STAFF_FAILURE = 'FETCH_STAFF_FAILURE'
-}
-
 export interface FetchStaffBegin {
   type: typeof FetchActions.FETCH_STAFF_BEGIN
 }
@@ -55,4 +46,12 @@ export type FetchActionType =
     | FetchStaffSuccess 
     | FetchStaffFailure
 
-export type AppActions = WorkerActionTypes | FetchActionType
+
+//Active Worker
+
+export interface ChangeActiveWorker {
+    type: typeof CHANGE_ACTIVE_WORKER,
+    id: number; 
+}
+
+export type AppActions = WorkerActionTypes | FetchActionType | ChangeActiveWorker

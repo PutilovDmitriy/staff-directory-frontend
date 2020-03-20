@@ -47,7 +47,7 @@ const staffReducer = (state = initialState, action: AppActions): Staff =>  {
             birthday: action.worker.birthday,
             gender: action.worker.gender,
             isFired: action.worker.gender,
-            collegues: action.worker.collegues
+            colleagues: action.worker.colleagues
             }], 
         ...workersAfter
         ],

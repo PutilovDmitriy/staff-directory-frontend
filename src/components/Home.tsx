@@ -6,11 +6,16 @@ import { Worker } from '../redux/types/Worker';
 
 interface Props {
   staffData: Worker[],
-  getStaff: () => void
+  getStaff: () => void,
+  activeWorker: number | null | undefined,
+  changeActive: (id: number) => void;
 }
 
-const Home: React.FC<Props> = ({staffData, getStaff}) => {
-
+const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive }) => {
+  console.log(activeWorker);
+  const changeActiveWorker = (id: number) => {
+    changeActive(id);
+  }
   const initFetch = useCallback(() => {
       getStaff();
   },[getStaff]);
@@ -18,12 +23,11 @@ const Home: React.FC<Props> = ({staffData, getStaff}) => {
   useEffect(() => { 
       initFetch();
   }, [initFetch]);
-
-  console.log(staffData);  //console
   return (
       <>
         <Header/>
-        <StaffList/>
+        <button onClick={() => changeActiveWorker(7)}>Изменить</button>
+        <StaffList staffData={ staffData }/>
       </>
   )
 };

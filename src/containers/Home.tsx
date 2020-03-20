@@ -5,14 +5,15 @@ import { getStaffFromApi } from '../redux/action/fetchAction';
 import { AppState } from '../redux/store';
 import { AppActions } from '../redux/types/actions'
 import { ThunkDispatch } from 'redux-thunk';
-import { Worker } from '../redux/types/Worker';
+import { changeActiveWorker } from '../redux/action';
 
 const mapStateToProps = (state: AppState) => ({      
     staffData: state.staffReducer.staff,
-    load: state.staffReducer.loading
+    activeWorker: state.activeWorkerReducer
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AppActions>) => ({
-    getStaff: bindActionCreators(getStaffFromApi, dispatch)
+    getStaff: bindActionCreators(getStaffFromApi, dispatch),
+    changeActive: bindActionCreators(changeActiveWorker, dispatch)
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
