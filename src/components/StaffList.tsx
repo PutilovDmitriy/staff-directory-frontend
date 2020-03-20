@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 interface IProps {
   staffData: Worker[]
   activeWorker: number | null | undefined
-  changeActiveWorker: (id: number) => void
+  changeActiveWorker: (id: number | null) => void
 }
 const StaffList: React.FC<IProps> = ({staffData, activeWorker, changeActiveWorker}) => {
   const classes = useStyles();

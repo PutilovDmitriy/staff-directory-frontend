@@ -9,8 +9,8 @@ export interface AddWorker {
     worker: Worker;
 }
 
-export interface DeliteWorker {
-    type: typeof WorkerActions.DELITE_WORKER,
+export interface DeleteWorker {
+    type: typeof WorkerActions.DELETE_WORKER,
     id: number;
 }
 
@@ -22,7 +22,7 @@ export interface UpdateWorker {
 
 export type WorkerActionTypes =
     | AddWorker 
-    | DeliteWorker 
+    | DeleteWorker 
     | UpdateWorker
 
 // fetch action type
@@ -51,7 +51,7 @@ export type FetchActionType =
 
 export interface ChangeActiveWorker {
     type: typeof CHANGE_ACTIVE_WORKER,
-    id: number; 
+    id: number | null; 
 }
 
 export type AppActions = WorkerActionTypes | FetchActionType | ChangeActiveWorker

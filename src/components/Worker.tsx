@@ -15,7 +15,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
 )(TableRow);
 interface Props extends Worker {
   activeWorker: number | null | undefined,
-  changeActiveWorker: (id: number) => void
+  changeActiveWorker: (id: number | null) => void
 }
 
 const WorkerRow: React.FC<Props> = ({id, FIO, position, birthday, gender, isFired, colleagues, activeWorker, changeActiveWorker }) => {
@@ -27,6 +27,9 @@ const WorkerRow: React.FC<Props> = ({id, FIO, position, birthday, gender, isFire
   const active = () => {
     if(id !== undefined){
       changeActiveWorker(id)
+    }
+    if(id === activeWorker){
+      changeActiveWorker(null)
     }
     return;
   }

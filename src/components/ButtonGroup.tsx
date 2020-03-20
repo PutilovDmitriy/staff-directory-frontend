@@ -18,12 +18,19 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-// interface Props {
-// }
+interface Props {
+  activeWorker: number | null | undefined
+  deleteWorker: (id: number) => void
+}
 
-const ButtonGroup: React.FunctionComponent = () => {
+const ButtonGroup: React.FC<Props> = ({ activeWorker, deleteWorker}) => {
   const classes = useStyles();
-
+  
+  const delite = () => {
+    if(activeWorker !== null && activeWorker !== undefined){
+      deleteWorker(activeWorker)
+    }
+  }
   return (
     <div className={classes.root}>
     <Button
@@ -37,8 +44,10 @@ const ButtonGroup: React.FunctionComponent = () => {
     <Button 
         variant="contained"
         color="secondary"
+        disabled={(activeWorker === null)}
         className={classes.button}
         startIcon={<DeleteIcon />}
+        onClick={delite}
       >
         Удалить
       </Button>

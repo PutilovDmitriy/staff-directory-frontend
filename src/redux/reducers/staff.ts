@@ -53,7 +53,7 @@ const staffReducer = (state = initialState, action: AppActions): Staff =>  {
         ],
         loading: state.loading,
         error: state.error}       
-      case WorkerActions.DELITE_WORKER:
+      case WorkerActions.DELETE_WORKER:
         const calculateI = (): number | undefined => {
           for(let i = 0; i < state.staff.length; i++) {       
           if(state.staff[i].id === action.id) {                                      
