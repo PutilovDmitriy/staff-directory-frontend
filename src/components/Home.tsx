@@ -13,10 +13,11 @@ interface Props {
   getStaff: () => void,
   activeWorker: number | null | undefined,
   changeActive: (id: number | null) => void,
+  addWorker: (worker: Worker) => void,
   removeWorker: (id: number) => void;
 }
 
-const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, removeWorker }) => {
+const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, addWorker, removeWorker }) => {
   console.log(activeWorker);
   const changeActiveWorker = (id: number | null) => {
     changeActive(id);
@@ -29,10 +30,21 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
       initFetch();
   }, [initFetch]);
 
+  function addNewWorker(worker: Worker) {
+    addWorker(worker); 
+    fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(worker)
+      })     
+};
+
   const deleteWorker = (id: number)  =>{
     removeWorker(id);
     changeActive(null);
-    let Url = url + '/' + id;
+    let Url = url + id;
     fetch(Url, {
         method: 'DELETE'
       });

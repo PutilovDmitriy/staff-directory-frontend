@@ -13,6 +13,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
     },
   }),
 )(TableRow);
+
 interface Props extends Worker {
   activeWorker: number | null | undefined,
   changeActiveWorker: (id: number | null) => void
