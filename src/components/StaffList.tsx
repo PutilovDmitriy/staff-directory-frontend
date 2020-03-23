@@ -6,19 +6,21 @@ import Scrollbar from './CustomeScrolleBar';
 import WorkerRow from './Worker';
 import { Worker } from '../redux/types/Worker';
 import THeader from './THeader';
+import Propgress from './Progress';
+
 
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
-  },
+  },  
 });
 
-interface IProps {
-  staffData: Worker[]
-  activeWorker: number | null | undefined
-  changeActiveWorker: (id: number | null) => void
+interface Props {
+  staffData: Worker[],
+  activeWorker: number | null | undefined,
+  changeActiveWorker: (id: number | null) => void,
 }
-const StaffList: React.FC<IProps> = ({staffData, activeWorker, changeActiveWorker}) => {
+const StaffList: React.FC<Props> = ({staffData, activeWorker, changeActiveWorker}) => {
   const classes = useStyles();
   
   return (
@@ -26,7 +28,7 @@ const StaffList: React.FC<IProps> = ({staffData, activeWorker, changeActiveWorke
       <Table className={classes.table} aria-label="customized table">
         <THeader/>
         <TableBody>
-          {staffData.map(worker => (
+          {staffData? staffData.map(worker => (
             <WorkerRow key={worker.id} 
               id={worker.id}
               FIO={worker.FIO} 
@@ -37,7 +39,7 @@ const StaffList: React.FC<IProps> = ({staffData, activeWorker, changeActiveWorke
               colleagues={worker.colleagues}
               activeWorker={ activeWorker }
               changeActiveWorker={changeActiveWorker}  />
-          ))}
+          )): ''}
         </TableBody>
       </Table>
     </Scrollbar>

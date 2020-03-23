@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import Container from '@material-ui/core/Container';
-import StaffList from './StaffList';
+import TableBlock from './TableBlock';
 import Header from './Header';
-import { AppActions } from '../redux/types/actions'
+import { AppActions } from '../redux/types/actions';
 import { Worker } from '../redux/types/Worker';
 import ButtonGroup from './ButtonGroup';
 import FormWorker from './FormWorker';
@@ -14,11 +14,12 @@ interface Props {
   activeWorker: number | null | undefined,
   changeActive: (id: number | null) => void,
   addWorker: (worker: Worker) => void,
-  removeWorker: (id: number) => void;
+  removeWorker: (id: number) => void,
+  colleaguesList: string[],
+  loading: boolean;
 }
 
-const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, addWorker, removeWorker }) => {
-  console.log(activeWorker);
+const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, addWorker, removeWorker, colleaguesList, loading }) => {
   const changeActiveWorker = (id: number | null) => {
     changeActive(id);
   }
@@ -54,8 +55,8 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
         <Header/>
         <Container>
           <ButtonGroup activeWorker={ activeWorker } deleteWorker={deleteWorker}/>
-          <StaffList changeActiveWorker={changeActiveWorker} staffData={ staffData } activeWorker={ activeWorker }/>
-          <FormWorker/>
+          <TableBlock loading={ loading } changeActiveWorker={changeActiveWorker} staffData={ staffData } activeWorker={ activeWorker }/>
+          <FormWorker staffData={ staffData } colleaguesList={ colleaguesList } />
         </Container>
       </>
   )

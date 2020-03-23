@@ -6,10 +6,21 @@ import { AppState } from '../redux/store';
 import { AppActions } from '../redux/types/actions'
 import { ThunkDispatch } from 'redux-thunk';
 import { changeActiveWorker, addWorker, deleteWorker } from '../redux/action';
+import { Worker } from '../redux/types/Worker';
+
+const detectionNameWorker = (staffData: Worker[]) => {
+    let nameList: string[] = [];
+    staffData.map(worker => {
+      nameList = nameList.concat(worker.FIO)
+    })
+    return nameList;
+  }
 
 const mapStateToProps = (state: AppState) => ({      
     staffData: state.staffReducer.staff,
-    activeWorker: state.activeWorkerReducer
+    loading: state.staffReducer.loading,
+    activeWorker: state.activeWorkerReducer,
+    colleaguesList: detectionNameWorker(state.staffReducer.staff)
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AppActions>) => ({
