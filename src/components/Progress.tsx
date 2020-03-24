@@ -1,6 +1,5 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Container from '@material-ui/core/Container';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>

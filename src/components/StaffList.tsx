@@ -1,12 +1,11 @@
 import React from 'react';
-import { withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Scrollbar from './CustomeScrolleBar';
 import WorkerRow from './Worker';
 import { Worker } from '../redux/types/Worker';
 import THeader from './THeader';
-import Propgress from './Progress';
 
 
 const useStyles = makeStyles({

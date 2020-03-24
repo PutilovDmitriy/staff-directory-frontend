@@ -2,7 +2,6 @@ import React, { useEffect, useCallback } from 'react';
 import Container from '@material-ui/core/Container';
 import TableBlock from './TableBlock';
 import Header from './Header';
-import { AppActions } from '../redux/types/actions';
 import { Worker } from '../redux/types/Worker';
 import ButtonGroup from './ButtonGroup';
 import FormWorker from './FormWorker';

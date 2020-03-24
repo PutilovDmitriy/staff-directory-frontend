@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Worker } from '../redux/types/Worker';
-import { withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 

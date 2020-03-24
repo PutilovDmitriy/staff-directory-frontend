@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState, useEffect} from 'react';
 import { Worker } from '../redux/types/Worker';
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FIOField from './Fields/FIOField';
 import PositionField from './Fields/PositionField';

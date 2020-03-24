@@ -1,4 +1,3 @@
-import { url } from './../../consts/index';
 import { AppActions } from './../types/actions';
 import { Worker } from './../types/Worker';
 
