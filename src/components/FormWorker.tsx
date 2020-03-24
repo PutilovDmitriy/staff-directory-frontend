@@ -88,7 +88,7 @@ const FormWorker: React.FC<Props> = ({ staffData, activeWorker, colleaguesList, 
         setFired(false);
         setColleagues([])
       }
-    },[activeWorker])    
+    },[activeWorker]) 
  
     let dateFormat = require('dateformat');
         
