@@ -40,9 +40,9 @@ const WorkerRow: React.FC<Props> = ({id, FIO, position, birthday, gender, isFire
         <TableCell component="th" scope="row">{FIO}</TableCell>
         <TableCell align="right">{position}</TableCell>
         <TableCell align="right">{birthday}</TableCell>
-        <TableCell align="right">{gender? "М": "Ж"}</TableCell>
+        <TableCell align="right">{(gender === 'female')? "М": "Ж"}</TableCell>
         <TableCell align="right">{isFired? "Да" : "Нет"}</TableCell>
-        <TableCell align="right">{colleagues}</TableCell>
+        <TableCell align="right"><div style={{overflow: "auto"}}>{colleagues}</div></TableCell>
   </StyledTableRow>
   )
 };

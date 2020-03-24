@@ -1,3 +1,4 @@
+import { url } from './../../consts/index';
 import { AppActions } from './../types/actions';
 import { Worker } from './../types/Worker';
 
@@ -12,8 +13,8 @@ export const addWorker = (worker: Worker): AppActions => {
     return { type: WorkerActions.ADD_WORKER, worker };
   }
   
-  export const updateWorker = (worker: Worker, i: number): AppActions => {
-    return { type: WorkerActions.UPDATE_WORKER, worker, i}
+  export const updateWorker = (worker: Worker, id: number): AppActions => {
+    return { type: WorkerActions.UPDATE_WORKER, worker, id}
   }
   
   export const deleteWorker = (id: number): AppActions => {

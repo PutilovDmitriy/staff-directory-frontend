@@ -7,7 +7,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      width: "75%", height: '480px',  margin: '10px 12.5% 20px 12.5%',
+      flex:'1 1 auto', 
+      width: "70%", 
+      height: 480,
+      margin: '10px 5px 5px 5px',  
+      boxShadow: '0px 4px 4px rgba(80, 20, 128, 0.5)',
       justifyContent: 'center',
       alignItems: 'center',
   }

@@ -17,7 +17,7 @@ export interface DeleteWorker {
 export interface UpdateWorker {
     type: typeof WorkerActions.UPDATE_WORKER,
     worker: Worker,
-    i: number;
+    id: number;
 }
 
 export type WorkerActionTypes =

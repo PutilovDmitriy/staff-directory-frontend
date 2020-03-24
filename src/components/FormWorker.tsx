@@ -1,26 +1,43 @@
-import React, {ChangeEvent, useState, useEffect, useCallback } from 'react';
+import React, {ChangeEvent, useState, useEffect} from 'react';
 import { Worker } from '../redux/types/Worker';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
-import TextField from "@material-ui/core/TextField";
 import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import DateFnsUtils from '@date-io/date-fns';
-import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Switch from '@material-ui/core/Switch';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
+import FIOField from './Fields/FIOField';
+import PositionField from './Fields/PositionField';
+import DateField from './Fields/DateField';
+import GenderField from './Fields/GenderField';
+import FiredField from './Fields/FiredField';
+import ColleaguesField from './Fields/ColleaguesField';
+import { isNull } from 'util';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-      peper:{
-          maxWidth: '75%',
-          margin: '10px 12.5% 10px 12.5%',
+      root: {
+        display: 'flex',
+        flex:'0 1 auto',
+        width: '300px',
+        height: '480px',
+        margin: '10px 5px 5px 5px',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        padding: '20px 5px',
+        boxSizing: 'border-box',
+        border: '4px solid #3f51b5',
+      },
+      disable: {
+          display: 'flex',
+          flex:'0 1 auto',
+          width: '300px',
+          height: '480px',
+          margin: '10px 5px 5px 5px',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          padding: '20px 5px',
+          boxSizing: 'border-box',
+          border: '4px solid #ccc',
       },
       formControl: {
         margin: theme.spacing(1),
@@ -34,145 +51,147 @@ const useStyles = makeStyles((theme: Theme) =>
       chip: {
         margin: 2,
       },
-  }),
+  })
 );
 
-const positions: {id: number, name: string}[] = [{id: 1, name: 'Директор'}, {id: 2, name: 'Менеджер'} , {id: 3, name:'Инженер'}, {id: 4, name: 'Охраник'}, {id: 5, name: 'Уборщик'}]
 
 interface Props {
   staffData: Worker[],
-  colleaguesList: string[];
+  colleaguesList: string[],
+  activeWorker: number | null | undefined,
+  activeWorkerData: Worker,
+  updateWorker: (worker: Worker, id: number) => void,
 }
 
-const FormWorker: React.FC<Props> = ({ staffData, colleaguesList }) => {   
-    const theme = useTheme();
+const FormWorker: React.FC<Props> = ({ staffData, activeWorker, colleaguesList, activeWorkerData,  updateWorker}) => { 
     const classes = useStyles();
-    const [position, setPosition] = useState('');
+    const [FIO, setFIO] = useState<string>('');
+    const [position, setPosition] = useState<string>('');
     const [date, setDate] = useState<Date | null>(null);
-    const [gender, setGender] = useState('female');
+    const [gender, setGender] = useState<string>('female');
     const [isFired, setFired] = useState(false);
     const [colleagues, setColleagues] = useState<string[]>([]);
-    
+
+    useEffect(() => {
+      if(activeWorker !== null){
+      setFIO(activeWorkerData.FIO);
+      setPosition(activeWorkerData.position);
+      setDate(new Date(activeWorkerData.birthday));
+      setGender(activeWorkerData.gender);
+      setFired(activeWorkerData.isFired);
+      setColleagues(activeWorkerData.colleagues)
+      }else{
+        setFIO('');
+        setPosition('');
+        setDate(null);
+        setGender('female');
+        setFired(false);
+        setColleagues([])
+      }
+    },[activeWorker])    
+ 
+    let dateFormat = require('dateformat');
+        
+    const handleFIOChange = (event: ChangeEvent<HTMLInputElement>) => {           
+      setFIO(event.target.value);
+      if(activeWorker !== null && activeWorker !== undefined){
+        updateWorker({
+              id: activeWorker,
+              FIO: event.target.value,
+              position: position,
+              birthday: String(dateFormat(date,'yyyy-mm-dd')),
+              gender: gender,
+              isFired: isFired,
+              colleagues: colleagues,
+            }, activeWorker)
+        }
+    };
+
     const handlePositionChange = (event: ChangeEvent<HTMLInputElement>) => {
         setPosition(event.target.value);
+        if(activeWorker !== null && activeWorker !== undefined){
+          updateWorker({
+                id: activeWorker,
+                FIO: FIO,
+                position: event.target.value,
+                birthday: String(dateFormat(date,'yyyy-mm-dd')),
+                gender: gender,
+                isFired: isFired,
+                colleagues: colleagues,
+              }, activeWorker)
+          }
       };
 
-    const handleDateChange = (date: Date | null) => {
+    const handleDateChange = (date: Date | null) => {        
         setDate(date);
+        if(activeWorker !== null && activeWorker !== undefined){
+          updateWorker({
+                id: activeWorker,
+                FIO: FIO,
+                position: position,
+                birthday: String(dateFormat(date,'yyyy-mm-dd')),
+                gender: gender,
+                isFired: isFired,
+                colleagues: colleagues,
+              }, activeWorker)
+          }
     };
 
     const handleGenderChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setGender((event.target as HTMLInputElement).value);
+      setGender(event.target.value);
+      if(activeWorker !== null && activeWorker !== undefined){
+        updateWorker({
+              id: activeWorker,
+              FIO: FIO,
+              position: position,
+              birthday: String(dateFormat(date,'yyyy-mm-dd')),
+              gender: event.target.value,
+              isFired: isFired,
+              colleagues: colleagues,
+            }, activeWorker)
+        }
     };
 
-    const handleFiredChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFiredChange = (event: ChangeEvent<HTMLInputElement>) => {
       setFired(event.target.checked);
+      if(activeWorker !== null && activeWorker !== undefined){
+        updateWorker({
+              id: activeWorker,
+              FIO: FIO,
+              position: position,
+              birthday: String(dateFormat(date,'yyyy-mm-dd')),
+              gender: gender,
+              isFired: event.target.checked,
+              colleagues: colleagues,
+            }, activeWorker)
+        }
     }; 
 
-    //for select
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250,
-        },
-      },
-    };
-
-    function getStyles(name: string, personName: string[], theme: Theme) {
-      return {
-        fontWeight:
-          personName.indexOf(name) === -1
-            ? theme.typography.fontWeightRegular
-            : theme.typography.fontWeightMedium,
-      };
-    }
-
-    const handleColleaguesChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleColleaguesChange = (event: ChangeEvent<{ value: unknown }>) => {
       setColleagues(event.target.value as string[]);
+      if(activeWorker !== null && activeWorker !== undefined){
+        updateWorker({
+              id: activeWorker,
+              FIO: FIO,
+              position: position,
+              birthday: String(dateFormat(date,'yyyy-mm-dd')),
+              gender: gender,
+              isFired: isFired,
+              colleagues: event.target.value as string[],
+            }, activeWorker)
+        }
     };
+
+    let disabled: boolean = isNull(activeWorker);
 
     return (
-        <Paper className={classes.peper}>
-            <TextField
-                error={ false }
-                id="input-fio"
-                label={true? "ФИО" :"Error"}
-                // value= 
-                helperText={true? "" : "Incorrect entry."}
-                variant="outlined"
-            />
-            <TextField
-          id="outlined-select-currency"
-          select
-          label="Должность"
-          value={position}
-          onChange={handlePositionChange}
-          helperText="Пожалуйста выберите должность"
-          variant="outlined"
-        >
-          {positions.map(pos => (
-            <MenuItem key={pos.id} value={pos.name}>
-              {pos.name}
-            </MenuItem>
-          ))}
-        </TextField>  
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            inputVariant="outlined"
-            format="dd/MM/yyyy"
-            id="date-picker-inline"
-            label="Дата рождения"
-            invalidLabel="Укажите правильный формат даты"
-            value={date}
-            disableFuture
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-                'aria-label': 'change date',
-            }}    
-            />  
-        </MuiPickersUtilsProvider>
-        <FormControl component="fieldset">
-          <RadioGroup row aria-label="gender" name="gender" value={gender} onChange={handleGenderChange}>
-            <FormControlLabel value="female" control={<Radio />} label="Мужской" />
-            <FormControlLabel value="male" control={<Radio />} label="Женский" />
-          </RadioGroup>
-        </FormControl>
-        <FormControlLabel
-        control={<Switch checked={isFired} onChange={handleFiredChange} name="checkedA" />}
-        label="Уволен"
-        labelPlacement="start"
-      />
-       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Коллеги</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={colleagues}
-          onChange={handleColleaguesChange}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={selected => (
-            <div className={classes.chips}>
-              {(selected as string[]).map(value => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
-        >
-          {(colleaguesList !== [])? colleaguesList.map(name => (
-            <MenuItem key={name} value={name} style={getStyles(name, colleagues, theme)}>
-              {name}
-            </MenuItem>
-          )): <MenuItem>Список колег пуст</MenuItem>}
-        </Select>
-      </FormControl>
-
+        <Paper className={activeWorker? classes.root : classes.disable}>
+          <FIOField FIO={ FIO } handleChange={ handleFIOChange } disabled={disabled}/>
+          <PositionField position={ position } handleChange={ handlePositionChange } disabled={disabled}/>
+          <DateField date={ date } handleChange={handleDateChange} disabled={disabled}/>
+          <GenderField gender={gender} handleChange={handleGenderChange} disabled={disabled}/>
+          <FiredField isFired={isFired}  handleChange={handleFiredChange} disabled={disabled}/>
+          <ColleaguesField colleagues={colleagues}  colleaguesList={colleaguesList} handleChange={handleColleaguesChange} disabled={disabled} />
         </Paper>
     )
 };

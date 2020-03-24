@@ -3,7 +3,7 @@ export interface Worker {
     FIO: string,
     position: string,
     birthday: string,
-    gender: boolean,
+    gender: string,
     isFired: boolean,
-    colleagues?: number[]
+    colleagues: string[];
 }

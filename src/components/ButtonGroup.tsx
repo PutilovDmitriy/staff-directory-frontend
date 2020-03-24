@@ -4,12 +4,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-        margin: '5px 12.5% 5px auto',
-        textAlign: 'right',
+        flex: '0 1 auto',
+        maxWidth: '300px',
+        // margin: '5px auto 5px 2%',
         padding: 0
     },
     button: {
@@ -19,11 +19,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  activeWorker: number | null | undefined
-  deleteWorker: (id: number) => void
+  activeWorker: number | null | undefined,
+  deleteWorker: (id: number) => void,
+  addNewWorker: () => void,
 }
 
-const ButtonGroup: React.FC<Props> = ({ activeWorker, deleteWorker}) => {
+const ButtonGroup: React.FC<Props> = ({ activeWorker, deleteWorker, addNewWorker}) => {
   const classes = useStyles();
   
   const delite = () => {
@@ -31,6 +32,7 @@ const ButtonGroup: React.FC<Props> = ({ activeWorker, deleteWorker}) => {
       deleteWorker(activeWorker)
     }
   }
+
   return (
     <div className={classes.root}>
     <Button
@@ -38,6 +40,7 @@ const ButtonGroup: React.FC<Props> = ({ activeWorker, deleteWorker}) => {
         color="primary"
         className={classes.button}
         endIcon={<AddIcon/>}
+        onClick={addNewWorker}
     >
         Добавить
     </Button>

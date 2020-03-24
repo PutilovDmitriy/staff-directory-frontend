@@ -7,6 +7,28 @@ import { Worker } from '../redux/types/Worker';
 import ButtonGroup from './ButtonGroup';
 import FormWorker from './FormWorker';
 import { url } from '../consts'
+import { makeStyles, createStyles } from '@material-ui/core';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+      home: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+      },
+      blocks: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }
+  }),
+);
+
 
 interface Props {
   staffData: Worker[],
@@ -15,14 +37,20 @@ interface Props {
   changeActive: (id: number | null) => void,
   addWorker: (worker: Worker) => void,
   removeWorker: (id: number) => void,
+  updateWorker: (worker: Worker, i: number) => void,
   colleaguesList: string[],
-  loading: boolean;
+  loading: boolean,
+  activeWorkerData: Worker | any,
 }
 
-const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, addWorker, removeWorker, colleaguesList, loading }) => {
+const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, addWorker, removeWorker, colleaguesList, loading, activeWorkerData, updateWorker }) => {
+  const classes = useStyles();
+  console.log(staffData);
+  
   const changeActiveWorker = (id: number | null) => {
     changeActive(id);
   }
+
   const initFetch = useCallback(() => {
       getStaff();
   },[getStaff]);
@@ -31,7 +59,16 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
       initFetch();
   }, [initFetch]);
 
-  function addNewWorker(worker: Worker) {
+  function addNewWorker() {
+    let worker = {
+      id: (staffData.length + 1),
+      FIO: '',
+      position: '',
+      birthday: '',
+      gender: 'female',
+      isFired: false,
+      colleagues: []
+    }
     addWorker(worker); 
     fetch(url, {
         method: 'POST',
@@ -39,7 +76,8 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
           'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(worker)
-      })     
+      });
+    changeActive(worker.id);
 };
 
   const deleteWorker = (id: number)  =>{
@@ -50,13 +88,36 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
         method: 'DELETE'
       });
 };
+
+const editWorker = (worker: Worker, id: number) => {
+  updateWorker(worker, id);
+      let Url = url + id;
+        fetch(Url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+              },
+            body: JSON.stringify({ 
+              id: worker.id,
+              FIO: worker.FIO, 
+              position: worker.position, 
+              birthday: worker.birthday,
+              gender: worker.gender,
+              isFired: worker.isFired,
+              colleagues: worker.colleagues
+             })
+    });
+}
+
   return (
       <>
         <Header/>
-        <Container>
-          <ButtonGroup activeWorker={ activeWorker } deleteWorker={deleteWorker}/>
-          <TableBlock loading={ loading } changeActiveWorker={changeActiveWorker} staffData={ staffData } activeWorker={ activeWorker }/>
-          <FormWorker staffData={ staffData } colleaguesList={ colleaguesList } />
+        <Container className={classes.home}>
+          <ButtonGroup activeWorker={ activeWorker } deleteWorker={deleteWorker} addNewWorker={ addNewWorker }/>
+          <div className={classes.blocks}>
+            <TableBlock loading={ loading } changeActiveWorker={changeActiveWorker} staffData={ staffData } activeWorker={ activeWorker }/>
+            <FormWorker staffData={ staffData } colleaguesList={ colleaguesList } activeWorker={ activeWorker } activeWorkerData={activeWorkerData}  updateWorker={editWorker}/>
+          </div>
         </Container>
       </>
   )

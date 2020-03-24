@@ -36,23 +36,32 @@ const staffReducer = (state = initialState, action: AppActions): Staff =>  {
       case WorkerActions.ADD_WORKER:     
         return { staff: state.staff.concat(action.worker), loading: state.loading, error: state.error};
       case WorkerActions.UPDATE_WORKER:
-        let workersBefore = state.staff.slice(0, action.i)
-        let workersAfter = state.staff.slice(action.i + 1)
+        const calculateN = (): number => {
+          for(let n = 0; n < state.staff.length; n++) {       
+          if(state.staff[n].id === action.id) {                                      
+            return n
+          }
+        }
+          return -1;
+        };
+        let n = calculateN()
+        let workersBefore = state.staff.slice(0, n)
+        let workersAfter = state.staff.slice(n + 1)
         return { 
         staff: [
         ...workersBefore, 
-        ...[{ id: state.staff[action.i].id,
+        ...[{ id: action.worker.id,
             FIO: action.worker.FIO,
             position: action.worker.position,
             birthday: action.worker.birthday,
             gender: action.worker.gender,
-            isFired: action.worker.gender,
+            isFired: action.worker.isFired,
             colleagues: action.worker.colleagues
             }], 
         ...workersAfter
         ],
         loading: state.loading,
-        error: state.error}       
+        error: state.error}
       case WorkerActions.DELETE_WORKER:
         const calculateI = (): number | undefined => {
           for(let i = 0; i < state.staff.length; i++) {       
