@@ -55,7 +55,7 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
 
   function addNewWorker() {
     let worker = {
-      id: (staffData.length + 1),
+      id: (staffData[staffData.length-1].id + 1),
       FIO: '',
       position: '',
       birthday: '',
