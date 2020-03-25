@@ -9,17 +9,17 @@ export enum WorkerActions {
 export const CHANGE_ACTIVE_WORKER = 'CHANGE_ACTIVE_WORKER';
 
 export const addWorker = (worker: Worker): AppActions => {
-    return { type: WorkerActions.ADD_WORKER, worker };
-  }
-  
-  export const updateWorker = (worker: Worker, id: number): AppActions => {
-    return { type: WorkerActions.UPDATE_WORKER, worker, id}
-  }
-  
-  export const deleteWorker = (id: number): AppActions => {
-    return { type: WorkerActions.DELETE_WORKER, id };
-  } 
+  return { type: WorkerActions.ADD_WORKER, worker };
+}
 
-  export const changeActiveWorker = (id: number | null): AppActions => {
-    return { type: CHANGE_ACTIVE_WORKER, id }
-  }
+export const updateWorker = (worker: Worker, id: number): AppActions => {
+  return { type: WorkerActions.UPDATE_WORKER, worker, id }
+}
+
+export const deleteWorker = (id: number): AppActions => {
+  return { type: WorkerActions.DELETE_WORKER, id };
+}
+
+export const changeActiveWorker = (id: number | null): AppActions => {
+  return { type: CHANGE_ACTIVE_WORKER, id }
+}

@@ -1,19 +1,19 @@
-import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
-      flex:'1 1 auto', 
-      width: "70%", 
+      display: "flex",
+      flex: "1 1 auto",
+      width: "70%",
       height: 480,
-      margin: '10px 5px 5px 5px',  
-      boxShadow: '0px 4px 4px rgba(80, 20, 128, 0.5)',
-      justifyContent: 'center',
-      alignItems: 'center',
-  }
+      margin: "10px 5px 5px 5px",
+      boxShadow: "0px 4px 4px rgba(80, 20, 128, 0.5)",
+      justifyContent: "center",
+      alignItems: "center"
+    }
   })
 );
 
@@ -22,9 +22,9 @@ const Progress: React.FC = () => {
 
   return (
     <div className={classes.root}>
-        <CircularProgress/>
-     </div>
-  );  
+      <CircularProgress />
+    </div>
+  );
 };
 
 export default Progress;

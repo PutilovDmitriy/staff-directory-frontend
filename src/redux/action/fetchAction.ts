@@ -4,7 +4,7 @@ import { AppActions } from './../types/actions';
 import { Dispatch } from "redux";
 
 export enum FetchActions {
-  FETCH_STAFF_BEGIN   = 'FETCH_STAFF_BEGIN',
+  FETCH_STAFF_BEGIN = 'FETCH_STAFF_BEGIN',
   FETCH_STAFF_SUCCESS = 'FETCH_STAFF_SUCCESS',
   FETCH_STAFF_FAILURE = 'FETCH_STAFF_FAILURE'
 }
@@ -26,7 +26,7 @@ export function getStaffFromApi() {
     dispatch(fetchStaffBegin());
     return fetch(url)
       .then(response => response.json(),
-            error => dispatch(fetchStaffFailure(error)))
+        error => dispatch(fetchStaffFailure(error)))
       .then(data => {
         dispatch(fetchStaffSuccess(data));
         return data;

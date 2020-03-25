@@ -1,6 +1,6 @@
 import { WorkerActions, CHANGE_ACTIVE_WORKER } from './../action';
 import { FetchActions } from './../action/fetchAction';
-import { Worker } from './Worker'; 
+import { Worker } from './Worker';
 
 //worker action type
 
@@ -21,29 +21,29 @@ export interface UpdateWorker {
 }
 
 export type WorkerActionTypes =
-    | AddWorker 
-    | DeleteWorker 
+    | AddWorker
+    | DeleteWorker
     | UpdateWorker
 
 // fetch action type
 
 export interface FetchStaffBegin {
-  type: typeof FetchActions.FETCH_STAFF_BEGIN
-}
-    
-export interface FetchStaffSuccess {
-      type: typeof FetchActions.FETCH_STAFF_SUCCESS,
-      staff: Worker[];
-    }
-    
-export interface FetchStaffFailure {
-      type: typeof FetchActions.FETCH_STAFF_FAILURE,
-      error: any;
+    type: typeof FetchActions.FETCH_STAFF_BEGIN
 }
 
-export type FetchActionType = 
-    |FetchStaffBegin 
-    | FetchStaffSuccess 
+export interface FetchStaffSuccess {
+    type: typeof FetchActions.FETCH_STAFF_SUCCESS,
+    staff: Worker[];
+}
+
+export interface FetchStaffFailure {
+    type: typeof FetchActions.FETCH_STAFF_FAILURE,
+    error: any;
+}
+
+export type FetchActionType =
+    | FetchStaffBegin
+    | FetchStaffSuccess
     | FetchStaffFailure
 
 
@@ -51,7 +51,7 @@ export type FetchActionType =
 
 export interface ChangeActiveWorker {
     type: typeof CHANGE_ACTIVE_WORKER,
-    id: number | null; 
+    id: number | null;
 }
 
 export type AppActions = WorkerActionTypes | FetchActionType | ChangeActiveWorker
