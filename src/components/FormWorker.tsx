@@ -9,6 +9,7 @@ import GenderField from './Fields/GenderField';
 import FiredField from './Fields/FiredField';
 import ColleaguesField from './Fields/ColleaguesField';
 import { isNull } from 'util';
+import { bildWorkerObj } from '../consts';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -93,92 +94,86 @@ const FormWorker: React.FC<Props> = ({ staffData, activeWorker, colleaguesList, 
     let dateFormat = require('dateformat');
         
     const handleFIOChange = (event: ChangeEvent<HTMLInputElement>) => {           
-      setFIO(event.target.value);
+      setFIO(event.target.value.replace(/[^A-Za-zА-Яа-яЁё\ ]/g, ''));
       if(activeWorker !== null && activeWorker !== undefined){
-        updateWorker({
-              id: activeWorker,
-              FIO: event.target.value,
-              position: position,
-              birthday: String(dateFormat(date,'yyyy-mm-dd')),
-              gender: gender,
-              isFired: isFired,
-              colleagues: colleagues,
-            }, activeWorker)
+        updateWorker(bildWorkerObj(
+          activeWorker,
+          event.target.value.replace(/[^A-Za-zА-Яа-яЁё\ ]/g, ''),
+          position,
+          String(dateFormat(date,'yyyy-mm-dd')),
+          gender,
+          isFired,
+          colleagues), activeWorker)
         }
     };
 
     const handlePositionChange = (event: ChangeEvent<HTMLInputElement>) => {
         setPosition(event.target.value);
         if(activeWorker !== null && activeWorker !== undefined){
-          updateWorker({
-                id: activeWorker,
-                FIO: FIO,
-                position: event.target.value,
-                birthday: String(dateFormat(date,'yyyy-mm-dd')),
-                gender: gender,
-                isFired: isFired,
-                colleagues: colleagues,
-              }, activeWorker)
+          updateWorker(bildWorkerObj(
+            activeWorker,
+            FIO,
+            event.target.value,
+            String(dateFormat(date,'yyyy-mm-dd')),
+            gender,
+            isFired,
+            colleagues), activeWorker)
           }
       };
 
     const handleDateChange = (date: Date | null) => {        
         setDate(date);
         if(activeWorker !== null && activeWorker !== undefined){
-          updateWorker({
-                id: activeWorker,
-                FIO: FIO,
-                position: position,
-                birthday: String(dateFormat(date,'yyyy-mm-dd')),
-                gender: gender,
-                isFired: isFired,
-                colleagues: colleagues,
-              }, activeWorker)
+          updateWorker(bildWorkerObj(
+            activeWorker,
+            FIO,
+            position,
+            String(dateFormat(date,'yyyy-mm-dd')),
+            gender,
+            isFired,
+            colleagues), activeWorker)
           }
     };
 
     const handleGenderChange = (event: ChangeEvent<HTMLInputElement>) => {
       setGender(event.target.value);
       if(activeWorker !== null && activeWorker !== undefined){
-        updateWorker({
-              id: activeWorker,
-              FIO: FIO,
-              position: position,
-              birthday: String(dateFormat(date,'yyyy-mm-dd')),
-              gender: event.target.value,
-              isFired: isFired,
-              colleagues: colleagues,
-            }, activeWorker)
+        updateWorker(bildWorkerObj(
+          activeWorker,
+          FIO,
+          position,
+          String(dateFormat(date,'yyyy-mm-dd')),
+          event.target.value,
+          isFired,
+          colleagues), activeWorker)
         }
     };
 
     const handleFiredChange = (event: ChangeEvent<HTMLInputElement>) => {
       setFired(event.target.checked);
       if(activeWorker !== null && activeWorker !== undefined){
-        updateWorker({
-              id: activeWorker,
-              FIO: FIO,
-              position: position,
-              birthday: String(dateFormat(date,'yyyy-mm-dd')),
-              gender: gender,
-              isFired: event.target.checked,
-              colleagues: colleagues,
-            }, activeWorker)
+        updateWorker(bildWorkerObj(
+          activeWorker,
+          FIO,
+          position,
+          String(dateFormat(date,'yyyy-mm-dd')),
+          gender,
+          event.target.checked,
+          colleagues), activeWorker)
         }
     }; 
 
     const handleColleaguesChange = (event: ChangeEvent<{ value: unknown }>) => {
       setColleagues(event.target.value as string[]);
       if(activeWorker !== null && activeWorker !== undefined){
-        updateWorker({
-              id: activeWorker,
-              FIO: FIO,
-              position: position,
-              birthday: String(dateFormat(date,'yyyy-mm-dd')),
-              gender: gender,
-              isFired: isFired,
-              colleagues: event.target.value as string[],
-            }, activeWorker)
+        updateWorker(bildWorkerObj(
+          activeWorker,
+          FIO,
+          position,
+          String(dateFormat(date,'yyyy-mm-dd')),
+          gender,
+          isFired,
+          event.target.value as string[]), activeWorker)
         }
     };
 

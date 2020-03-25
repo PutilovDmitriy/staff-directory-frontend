@@ -8,6 +8,7 @@ interface Props {
 }
 
 const FIOField: React.FC<Props> = ({ FIO, handleChange, disabled }) => {
+
   return (
     <TextField
         error={ false }
@@ -18,6 +19,7 @@ const FIOField: React.FC<Props> = ({ FIO, handleChange, disabled }) => {
         variant="outlined"
         onChange={handleChange}
         disabled={disabled}
+        autoFocus={true}
     />
   )
 };

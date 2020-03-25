@@ -7,7 +7,6 @@ import WorkerRow from './Worker';
 import { Worker } from '../redux/types/Worker';
 import THeader from './THeader';
 
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -17,9 +16,10 @@ const useStyles = makeStyles({
 interface Props {
   staffData: Worker[],
   activeWorker: number | null | undefined,
-  changeActiveWorker: (id: number | null) => void,
+  changeActive: (id: number | null) => void,
+  activeWorkerData:  Worker | any,
 }
-const StaffList: React.FC<Props> = ({staffData, activeWorker, changeActiveWorker}) => {
+const StaffList: React.FC<Props> = ({staffData, activeWorker, changeActive, activeWorkerData}) => {
   const classes = useStyles();
   
   return (
@@ -37,7 +37,8 @@ const StaffList: React.FC<Props> = ({staffData, activeWorker, changeActiveWorker
               isFired={worker.isFired} 
               colleagues={worker.colleagues}
               activeWorker={ activeWorker }
-              changeActiveWorker={changeActiveWorker}  />
+              changeActive={changeActive}
+              activeWorkerData={activeWorkerData}  />
           )): ''}
         </TableBody>
       </Table>

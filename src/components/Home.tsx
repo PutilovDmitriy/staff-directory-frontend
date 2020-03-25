@@ -43,12 +43,7 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive, addWorker, removeWorker, colleaguesList, loading, activeWorkerData, updateWorker }) => {
-  const classes = useStyles();
-  console.log(staffData);
-  
-  const changeActiveWorker = (id: number | null) => {
-    changeActive(id);
-  }
+  const classes = useStyles();  
 
   const initFetch = useCallback(() => {
       getStaff();
@@ -76,6 +71,7 @@ const Home: React.FC<Props> = ({staffData, getStaff, activeWorker, changeActive,
         },
         body: JSON.stringify(worker)
       });
+    console.log(worker.id);    
     changeActive(worker.id);
 };
 
@@ -114,7 +110,7 @@ const editWorker = (worker: Worker, id: number) => {
         <Container className={classes.home}>
           <ButtonGroup activeWorker={ activeWorker } deleteWorker={deleteWorker} addNewWorker={ addNewWorker }/>
           <div className={classes.blocks}>
-            <TableBlock loading={ loading } changeActiveWorker={changeActiveWorker} staffData={ staffData } activeWorker={ activeWorker }/>
+            <TableBlock loading={ loading }/>
             <FormWorker staffData={ staffData } colleaguesList={ colleaguesList } activeWorker={ activeWorker } activeWorkerData={activeWorkerData}  updateWorker={editWorker}/>
           </div>
         </Container>

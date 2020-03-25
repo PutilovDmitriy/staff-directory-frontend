@@ -17,9 +17,9 @@ const DateField: React.FC<Props> = ({ date, handleChange, disabled }) => {
             variant="inline"
             inputVariant="outlined"
             format="dd/MM/yyyy"
-            placeholder="10/10/2018"
+            placeholder="Дата рождения"
             invalidDateMessage="Укажите правильный формат даты"
-            autoOk
+            label="Дата рождения"
             value={date}
             disableFuture
             onChange={date => handleChange(date)}    
