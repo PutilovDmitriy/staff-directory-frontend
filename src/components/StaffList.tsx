@@ -46,6 +46,7 @@ const StaffList: React.FC<Props> = ({
                   activeWorker={activeWorker}
                   changeActive={changeActive}
                   activeWorkerData={activeWorkerData}
+                  staffData={staffData}
                 />
               ))
             : ""}

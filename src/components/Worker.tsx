@@ -18,6 +18,7 @@ interface Props extends Worker {
   activeWorker: number | null | undefined;
   changeActive: (id: number | null) => void;
   activeWorkerData: Worker;
+  staffData: Worker[];
 }
 
 const WorkerRow: React.FC<Props> = ({
@@ -30,7 +31,8 @@ const WorkerRow: React.FC<Props> = ({
   colleagues,
   activeWorker,
   changeActive,
-  activeWorkerData
+  activeWorkerData,
+  staffData
 }) => {
   const definitionAction = () => {
     return {
@@ -63,7 +65,6 @@ const WorkerRow: React.FC<Props> = ({
     }
     return alert("Заполните форму или удалите форму");
   };
-
   return (
     <StyledTableRow onClick={active} style={definitionAction()}>
       <TableCell component="th" scope="row">
@@ -74,7 +75,10 @@ const WorkerRow: React.FC<Props> = ({
       <TableCell align="right">{gender === "female" ? "М" : "Ж"}</TableCell>
       <TableCell align="right">{isFired ? "Да" : "Нет"}</TableCell>
       <TableCell align="right">
-        <div style={{ overflow: "auto" }}>{colleagues}</div>
+        {colleagues.map(colleague => {
+          let nameId = staffData.find(item => item.id == colleague);
+          return `${nameId?.FIO}, `;
+        })}
       </TableCell>
     </StyledTableRow>
   );

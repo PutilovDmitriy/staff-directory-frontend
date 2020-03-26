@@ -9,7 +9,7 @@ export const bildWorkerObj = (
   date: string,
   gender: string,
   isFired: boolean,
-  colleagues: string[]
+  colleagues: number[]
 ) => {
   return {
     id: id,
@@ -49,7 +49,7 @@ export const positions: { id: number; name: string }[] = [
   { id: 2, name: "Менеджер" },
   { id: 3, name: "Инженер" },
   { id: 4, name: "Стажёр" },
-  { id: 5, name: "Охраник" },
+  { id: 5, name: "Охранник" },
   { id: 6, name: "Уборщик" },
   { id: 7, name: "Администратор" },
   { id: 8, name: "Водитель" }

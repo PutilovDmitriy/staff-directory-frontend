@@ -9,25 +9,23 @@ import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import FormLabel from "@material-ui/core/FormLabel";
 import clsx from "clsx";
+import { colleaguesObj } from "../../redux/types/colleaguesObj";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
-      maxWidth: 300
-    },
-    noLabel: {
-      marginTop: theme.spacing(3),
-      maxWidth: 200
+      maxWidth: 220
     }
   })
 );
 
 interface Props {
-  colleaguesList: string[];
-  colleagues: string[];
+  colleaguesList: colleaguesObj[];
+  colleagues: number[];
   handleChange: (event: ChangeEvent<{ value: unknown }>) => void;
   disabled: boolean;
 }
@@ -52,7 +50,7 @@ const ColleaguesField: React.FC<Props> = ({
     }
   };
 
-  function getStyles(name: string, personName: string[], theme: Theme) {
+  function getStyles(name: number, personName: number[], theme: Theme) {
     return {
       fontWeight:
         personName.indexOf(name) === -1
@@ -61,10 +59,10 @@ const ColleaguesField: React.FC<Props> = ({
     };
   }
   return (
-    <FormControl
-      className={clsx(classes.formControl, classes.noLabel)}
-      disabled={disabled}
-    >
+    <FormControl className={classes.formControl} disabled={disabled}>
+      <FormLabel component="legend" style={{ textAlign: "center" }}>
+        Коллеги
+      </FormLabel>
       <Select
         multiple
         displayEmpty
@@ -72,24 +70,26 @@ const ColleaguesField: React.FC<Props> = ({
         onChange={handleChange}
         input={<Input />}
         renderValue={selected => {
-          if ((selected as string[]).length === 0) {
-            return <em>Коллеги</em>;
+          if ((selected as number[]).length === 0) {
+            return <em>Выберите коллег</em>;
           }
-
-          return (selected as string[]).join(", ");
+          return (selected as number[]).map(i => {
+            let nameId = colleaguesList.find(item => item.id == i);
+            return `${nameId?.name}, `;
+          });
         }}
         MenuProps={MenuProps}
       >
         <MenuItem disabled value="">
           <em>Коллеги</em>
         </MenuItem>
-        {colleaguesList.map(name => (
+        {colleaguesList.map(colleague => (
           <MenuItem
-            key={name}
-            value={name}
-            style={getStyles(name, colleagues, theme)}
+            key={colleague.id}
+            value={colleague.id}
+            style={getStyles(colleague.id, colleagues, theme)}
           >
-            {name}
+            {colleague.name}
           </MenuItem>
         ))}
       </Select>

@@ -10,6 +10,7 @@ import FiredField from "./Fields/FiredField";
 import ColleaguesField from "./Fields/ColleaguesField";
 import { isNull } from "util";
 import { bildWorkerObj } from "../consts";
+import { colleaguesObj } from "../redux/types/colleaguesObj";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   staffData: Worker[];
-  colleaguesList: string[];
+  colleaguesList: colleaguesObj[];
   activeWorker: number | null | undefined;
   activeWorkerData: Worker;
   updateWorker: (worker: Worker, id: number) => void;
@@ -75,7 +76,7 @@ const FormWorker: React.FC<Props> = ({
   const [date, setDate] = useState<Date | null>(new Date());
   const [gender, setGender] = useState<string>("female");
   const [isFired, setFired] = useState(false);
-  const [colleagues, setColleagues] = useState<string[]>([]);
+  const [colleagues, setColleagues] = useState<number[]>([]);
 
   useEffect(() => {
     if (activeWorker !== null) {
@@ -188,7 +189,7 @@ const FormWorker: React.FC<Props> = ({
   };
 
   const handleColleaguesChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setColleagues(event.target.value as string[]);
+    setColleagues(event.target.value as number[]);
     if (activeWorker !== null && activeWorker !== undefined) {
       updateWorker(
         bildWorkerObj(
@@ -198,7 +199,7 @@ const FormWorker: React.FC<Props> = ({
           String(dateFormat(date, "yyyy-mm-dd")),
           gender,
           isFired,
-          event.target.value as string[]
+          event.target.value as number[]
         ),
         activeWorker
       );

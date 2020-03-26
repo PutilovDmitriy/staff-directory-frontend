@@ -16,6 +16,7 @@ const PositionField: React.FC<Props> = ({
 }) => {
   return (
     <TextField
+      className="field"
       id="outlined-select-currency"
       select
       label="Должность"

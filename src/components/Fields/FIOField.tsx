@@ -10,6 +10,7 @@ interface Props {
 const FIOField: React.FC<Props> = ({ FIO, handleChange, disabled }) => {
   return (
     <TextField
+      className="field"
       error={false}
       id="input-fio"
       label={true ? "ФИО" : "Error"}

@@ -11,17 +11,18 @@ import {
   deleteWorker,
   updateWorker
 } from "../redux/action";
+import { colleaguesObj } from "../redux/types/colleaguesObj";
 import { Worker } from "../redux/types/Worker";
 import { gettingActiveWorkerData } from "../consts";
 
 const detectionNameWorker = (
   staffData: Worker[],
-  id: number | null | undefined
+  idAct: number | null | undefined
 ) => {
-  let nameList: string[] = [];
+  let nameList: colleaguesObj[] = [];
   staffData.map(worker => {
-    if (id !== worker.id) {
-      nameList = nameList.concat(worker.FIO);
+    if (idAct !== worker.id) {
+      nameList = nameList.concat({ id: worker.id, name: worker.FIO });
     }
   });
   return nameList;

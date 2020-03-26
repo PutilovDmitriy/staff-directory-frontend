@@ -12,6 +12,7 @@ const DateField: React.FC<Props> = ({ date, handleChange, disabled }) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker
+        className="field"
         clearable
         variant="inline"
         inputVariant="outlined"

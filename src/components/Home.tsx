@@ -7,6 +7,7 @@ import ButtonGroup from "./ButtonGroup";
 import FormWorker from "./FormWorker";
 import { url } from "../consts";
 import { makeStyles, createStyles } from "@material-ui/core";
+import { colleaguesObj } from "../redux/types/colleaguesObj";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,7 +37,7 @@ interface Props {
   addWorker: (worker: Worker) => void;
   removeWorker: (id: number) => void;
   updateWorker: (worker: Worker, i: number) => void;
-  colleaguesList: string[];
+  colleaguesList: colleaguesObj[];
   loading: boolean;
   activeWorkerData: Worker | any;
 }
@@ -81,7 +82,6 @@ const Home: React.FC<Props> = ({
       },
       body: JSON.stringify(worker)
     });
-    console.log(worker.id);
     changeActive(worker.id);
   }
 
