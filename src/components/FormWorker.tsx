@@ -9,7 +9,7 @@ import GenderField from "./Fields/GenderField";
 import FiredField from "./Fields/FiredField";
 import ColleaguesField from "./Fields/ColleaguesField";
 import { isNull } from "util";
-import { bildWorkerObj } from "../consts";
+import { bildWorkerObj, dateFormat } from "../consts";
 import { colleaguesObj } from "../redux/types/colleaguesObj";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -82,7 +82,7 @@ const FormWorker: React.FC<Props> = ({
     if (activeWorker !== null) {
       setFIO(activeWorkerData.FIO);
       setPosition(activeWorkerData.position);
-      setDate(new Date());
+      setDate(new Date(activeWorkerData.birthday || 0));
       setGender(activeWorkerData.gender);
       setFired(activeWorkerData.isFired);
       setColleagues(activeWorkerData.colleagues);
@@ -95,8 +95,6 @@ const FormWorker: React.FC<Props> = ({
       setColleagues([]);
     }
   }, [activeWorker]);
-
-  let dateFormat = require("dateformat");
 
   const handleFIOChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFIO(event.target.value.replace(/[^A-Za-zА-Яа-яЁё\ ]/g, ""));

@@ -54,3 +54,5 @@ export const positions: { id: number; name: string }[] = [
   { id: 7, name: "Администратор" },
   { id: 8, name: "Водитель" }
 ];
+
+export const dateFormat = require("dateformat");
