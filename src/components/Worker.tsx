@@ -38,13 +38,30 @@ const WorkerRow: React.FC<Props> = ({
     };
   };
   const active = () => {
-    if (id !== undefined) {
+    if (activeWorker === null) {
       changeActive(id);
+      return;
     }
-    if (id === activeWorker) {
+    if (
+      id !== undefined &&
+      id !== activeWorker &&
+      activeWorkerData.FIO !== "" &&
+      activeWorkerData.position !== "" &&
+      activeWorkerData.birthday !== ""
+    ) {
+      changeActive(id);
+      return;
+    }
+    if (
+      id === activeWorker &&
+      activeWorkerData.FIO !== "" &&
+      activeWorkerData.position !== "" &&
+      activeWorkerData.birthday !== ""
+    ) {
       changeActive(null);
+      return;
     }
-    return;
+    return alert("Заполните форму или удалите форму");
   };
 
   return (

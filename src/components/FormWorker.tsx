@@ -72,7 +72,7 @@ const FormWorker: React.FC<Props> = ({
   const classes = useStyles();
   const [FIO, setFIO] = useState<string>("");
   const [position, setPosition] = useState<string>("");
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date | null>(new Date());
   const [gender, setGender] = useState<string>("female");
   const [isFired, setFired] = useState(false);
   const [colleagues, setColleagues] = useState<string[]>([]);
@@ -81,7 +81,7 @@ const FormWorker: React.FC<Props> = ({
     if (activeWorker !== null) {
       setFIO(activeWorkerData.FIO);
       setPosition(activeWorkerData.position);
-      setDate(new Date(activeWorkerData.birthday));
+      setDate(new Date());
       setGender(activeWorkerData.gender);
       setFired(activeWorkerData.isFired);
       setColleagues(activeWorkerData.colleagues);
