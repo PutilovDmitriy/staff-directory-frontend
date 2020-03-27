@@ -22,7 +22,7 @@ const PositionField: React.FC<Props> = ({
       label="Должность"
       value={position}
       onChange={handleChange}
-      helperText="Пожалуйста выберите должность"
+      helperText="Пожалуйста, выберите должность"
       variant="outlined"
       disabled={disabled}
     >
