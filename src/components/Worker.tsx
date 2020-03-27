@@ -3,7 +3,7 @@ import { Worker } from "../redux/types/Worker";
 import { withStyles, Theme, createStyles } from "@material-ui/core/styles";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import { dateFormat } from "../consts";
+import { dateFormat, bildWorkerObj } from "../consts";
 
 const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +20,7 @@ interface Props extends Worker {
   changeActive: (id: number | null) => void;
   activeWorkerData: Worker;
   staffData: Worker[];
+  updateWorker: (worker: Worker, id: number) => void;
 }
 
 const WorkerRow: React.FC<Props> = ({
@@ -33,7 +34,8 @@ const WorkerRow: React.FC<Props> = ({
   activeWorker,
   changeActive,
   activeWorkerData,
-  staffData
+  staffData,
+  updateWorker
 }) => {
   const definitionAction = () => {
     return {
@@ -66,6 +68,18 @@ const WorkerRow: React.FC<Props> = ({
     }
     return alert("Заполните форму или удалите форму");
   };
+
+  const deleteCollegue = (idC: number) => {
+    let i = colleagues.indexOf(idC);
+    updateWorker(
+      bildWorkerObj(id, FIO, position, birthday, gender, isFired, [
+        ...colleagues.slice(0, i),
+        ...colleagues.slice(i + 1)
+      ]),
+      id
+    );
+    return;
+  };
   return (
     <StyledTableRow onClick={active} style={definitionAction()}>
       <TableCell component="th" scope="row">
@@ -78,7 +92,9 @@ const WorkerRow: React.FC<Props> = ({
       <TableCell align="right">
         {colleagues.map(colleague => {
           let nameId = staffData.find(item => item.id == colleague);
-          return `${nameId?.FIO}, `;
+          if (nameId === undefined) {
+            deleteCollegue(colleague);
+          } else return `${nameId?.FIO}, `;
         })}
       </TableCell>
     </StyledTableRow>

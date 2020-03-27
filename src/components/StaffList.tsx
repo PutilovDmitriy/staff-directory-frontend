@@ -18,12 +18,14 @@ interface Props {
   activeWorker: number | null | undefined;
   changeActive: (id: number | null) => void;
   activeWorkerData: Worker | any;
+  updateWorker: (worker: Worker, id: number) => void;
 }
 const StaffList: React.FC<Props> = ({
   staffData,
   activeWorker,
   changeActive,
-  activeWorkerData
+  activeWorkerData,
+  updateWorker
 }) => {
   const classes = useStyles();
 
@@ -47,6 +49,7 @@ const StaffList: React.FC<Props> = ({
                   changeActive={changeActive}
                   activeWorkerData={activeWorkerData}
                   staffData={staffData}
+                  updateWorker={updateWorker}
                 />
               ))
             : ""}
