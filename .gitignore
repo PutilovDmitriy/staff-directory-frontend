@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+#product
+/bild
 
 # misc
 .DS_Store
