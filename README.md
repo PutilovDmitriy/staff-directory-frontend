@@ -1,3 +1,3 @@
 Решение тестового задания.
 
-Посмотреть приложение можно по ссылке https://putilovdmitriy.github.io/
+Посмотреть приложение можно по ссылке https://putilovdmitriy.github.io/staff_derectory/
