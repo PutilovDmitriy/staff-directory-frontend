@@ -1,3 +1,4 @@
+import { Gender } from "./../redux/types/Gender";
 import { Worker } from "./../redux/types/Worker";
 
 export const url: string = "https://afternoon-wave-94253.herokuapp.com/staff/";
@@ -7,7 +8,7 @@ export const bildWorkerObj = (
   FIO: string,
   position: string,
   date: string,
-  gender: string,
+  gender: Gender,
   isFired: boolean,
   colleagues: number[]
 ) => {
@@ -36,7 +37,7 @@ export const gettingActiveWorkerData = (
         FIO: "",
         position: "",
         birthday: "",
-        gender: "famela",
+        gender: "female",
         isFired: false,
         colleagues: []
       };

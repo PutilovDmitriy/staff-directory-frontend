@@ -11,6 +11,7 @@ import ColleaguesField from "./Fields/ColleaguesField";
 import { isNull } from "util";
 import { bildWorkerObj, dateFormat } from "../consts";
 import { colleaguesObj } from "../redux/types/colleaguesObj";
+import { Gender } from "../redux/types/Gender";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,7 +75,7 @@ const FormWorker: React.FC<Props> = ({
   const [FIO, setFIO] = useState<string>("");
   const [position, setPosition] = useState<string>("");
   const [date, setDate] = useState<Date | null>(new Date());
-  const [gender, setGender] = useState<string>("female");
+  const [gender, setGender] = useState<Gender>("female");
   const [isFired, setFired] = useState(false);
   const [colleagues, setColleagues] = useState<number[]>([]);
 
@@ -151,7 +152,7 @@ const FormWorker: React.FC<Props> = ({
   };
 
   const handleGenderChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setGender(event.target.value);
+    setGender(event.target.value === "female" ? "female" : "male");
     if (activeWorker !== null && activeWorker !== undefined) {
       updateWorker(
         bildWorkerObj(
@@ -159,7 +160,7 @@ const FormWorker: React.FC<Props> = ({
           FIO,
           position,
           String(dateFormat(date, "yyyy-mm-dd")),
-          event.target.value,
+          event.target.value === "female" ? "female" : "male",
           isFired,
           colleagues
         ),
