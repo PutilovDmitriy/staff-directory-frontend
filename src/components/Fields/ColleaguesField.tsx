@@ -10,7 +10,6 @@ import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormLabel from "@material-ui/core/FormLabel";
-import clsx from "clsx";
 import { colleaguesObj } from "../../redux/types/colleaguesObj";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,7 +73,7 @@ const ColleaguesField: React.FC<Props> = ({
             return <em>Выберите коллег</em>;
           }
           return (selected as number[]).map(i => {
-            let nameId = colleaguesList.find(item => item.id == i);
+            let nameId = colleaguesList.find(item => item.id === i);
             return `${nameId?.name}, `;
           });
         }}

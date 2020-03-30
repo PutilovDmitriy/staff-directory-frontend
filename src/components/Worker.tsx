@@ -91,7 +91,7 @@ const WorkerRow: React.FC<Props> = ({
       <TableCell align="right">{isFired ? "Да" : "Нет"}</TableCell>
       <TableCell align="right">
         {colleagues.map(colleague => {
-          let nameId = staffData.find(item => item.id == colleague);
+          let nameId = staffData.find(item => item.id === colleague);
           if (nameId === undefined) {
             deleteCollegue(colleague);
           } else return `${nameId?.FIO}, `;
